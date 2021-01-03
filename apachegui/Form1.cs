@@ -20,6 +20,7 @@ namespace apachegui
         public static int Type = 0; // 0 - File, 1 - srvr, 2 - ws
         public static bool x32 = false;
         public static bool x64 = false;
+        public static bool Capacity; // true - 32  false - 64
         public static bool ApacheInstall = false;
         public static bool Platform;
         public static bool IBChen;
@@ -48,6 +49,7 @@ namespace apachegui
             {
                 label2.ForeColor = Color.Green;
                 pictureBox1.Image = Properties.Resources.Ok;
+                Capacity = true;
                 foreach (var i in InstallPlatforms32)
                 {
                     comboBox1.Items.Add(i.Replace(GetPath.onecv832 + @"\", ""));
@@ -64,6 +66,7 @@ namespace apachegui
             {
                 label3.ForeColor = Color.Green;
                 pictureBox2.Image = Properties.Resources.Ok;
+                Capacity = false;
                 foreach (var i in InstallPlatforms64)
                 {
                     comboBox2.Items.Add(i.Replace(GetPath.onecv864 + @"\", ""));
@@ -206,6 +209,7 @@ namespace apachegui
             else
             {
                 checkBox1.Checked = true;
+                Capacity = true;
             }
         }
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
@@ -217,6 +221,7 @@ namespace apachegui
             else
             {
                 checkBox2.Checked = true;
+                Capacity = false;
             }
         }
 
@@ -337,7 +342,7 @@ namespace apachegui
 
         private void button4_Click(object sender, EventArgs e)
         {
-            /*
+            
             if (Platform == true && ApacheInstall == true && IBChen == true && ConfPath == true && Alias == true && ServiceName == true)
             {
                 bool vrd = false;
@@ -345,7 +350,21 @@ namespace apachegui
                 CreatePublication.CheckDir(ref vrd, ref cfg);
                 if (vrd == true && cfg == true)
                 {
-
+                    string platform;
+                    if (Capacity == true)
+                    {
+                        platform = comboBox1.Text;
+                    }
+                    else
+                    {
+                        platform = comboBox2.Text;
+                    }
+                    vrd = CreatePublication.CreateVRD(textBox4.Text);
+                    cfg = CreatePublication.CreateCFG(textBox5.Text, textBox3.Text, platform, Capacity, textBox4.Text);
+                    if (vrd == true && cfg == true)
+                    { 
+                        
+                    }
                 }
                 else
                 {
@@ -356,8 +375,6 @@ namespace apachegui
             {
                 MessageBox.Show("Выполнены не все условия!");
             }
-            */
-            CreatePublication.CreateVRD(textBox4.Text);
         }
         internal static void Message(string mes)
         {

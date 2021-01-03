@@ -92,5 +92,8 @@
   <ItemGroup>
     <None Include="Resources\What.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="asanawebhook.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

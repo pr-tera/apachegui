@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<point xmlns="http://v8.1c.ru/8.2/virtual-resource-system" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+base="/asanawebhook" 
+ib="Srvr=&quot;localhost&quot;;Ref=&quot;Uzel&quot;;usr=&quot;asana&quot;;pwd=&quot;webhookforasana&quot;;"
+		enable="false">
+	<ws pointEnableCommon="false">
+		<point name="taskevents"
+				enable="true"
+				reuseSessions="dontuse"
+				sessionMaxAge="20"
+				poolSize="10"
+				poolTimeout="5"/>
+	</ws>
+</point>

@@ -16,6 +16,8 @@ namespace apachegui
         public static string[] InstallPlatforms32;
         public static string[] InstallPlatforms64;
         public static string[] IB;
+        public static string IbPath = null;
+        public static int Type = 0; // 0 - File, 1 - srvr, 2 - ws
         public static bool x32 = false;
         public static bool x64 = false;
         public static bool ApacheInstall = false;
@@ -25,6 +27,7 @@ namespace apachegui
         public static bool Port = true;
         public static bool Alias = false;
         public static bool ServiceName = true;
+        public static bool Debug = false;
         ToolTip toolTip = new ToolTip();
         public Form1()
         {
@@ -157,23 +160,21 @@ namespace apachegui
         }
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            bool Check = false;
-            int type = 0; // 0 - File, 1 - srvr, 2 - ws
-            string IBPath = null;
-            GetPath.CheckDBPath(comboBox3.SelectedItem.ToString(), ref Check, ref type, ref IBPath);
-            switch (type)
+            bool check = false;
+            GetPath.CheckDBPath(comboBox3.SelectedItem.ToString(), ref check, ref Type, ref IbPath);
+            switch (Type)
             {
                 case 0:
-                    if (Check == true)
+                    if (check == true)
                     {
-                        label7.Text = IBPath;
+                        label7.Text = IbPath;
                         pictureBox4.Image = Properties.Resources.Ok;
                         IBChen = true;
                         break;
                     }
                     else
                     {
-                        label7.Text = IBPath;
+                        label7.Text = IbPath;
                         pictureBox4.Image = Properties.Resources.Error;
                         //toolTip.RemoveAll();
                         toolTip.SetToolTip(pictureBox4, "Файл базы данных не обнаружен");
@@ -181,14 +182,14 @@ namespace apachegui
                         break;
                     }
                 case 1:
-                    label7.Text = IBPath;
+                    label7.Text = IbPath;
                     pictureBox4.Image = Properties.Resources.What;
                     //toolTip.RemoveAll();
                     toolTip.SetToolTip(pictureBox4, "Серверная база, нужно проверить её существование!");
                     IBChen = true;
                     break;
                 case 2:
-                    label7.Text = IBPath;
+                    label7.Text = IbPath;
                     pictureBox4.Image = Properties.Resources.Error;
                     //toolTip.RemoveAll();
                     toolTip.SetToolTip(pictureBox4, "Это публикация!!!");
@@ -336,7 +337,7 @@ namespace apachegui
 
         private void button4_Click(object sender, EventArgs e)
         {
-
+            /*
             if (Platform == true && ApacheInstall == true && IBChen == true && ConfPath == true && Alias == true && ServiceName == true)
             {
                 bool vrd = false;
@@ -354,6 +355,26 @@ namespace apachegui
             else
             {
                 MessageBox.Show("Выполнены не все условия!");
+            }
+            */
+            CreatePublication.CreateVRD(textBox4.Text);
+        }
+        internal static void Message(string mes)
+        {
+            MessageBox.Show(mes);
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox3.Checked == true)
+            {
+                checkBox3.Text = "Включена";
+                Debug = true;
+            }
+            else
+            {
+                checkBox3.Text = "Выключена";
+                Debug = false;
             }
         }
     }
